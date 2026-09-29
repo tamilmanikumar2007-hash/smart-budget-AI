@@ -1,0 +1,143 @@
+Create your Google Cloud project
+
+Google Cloud Console
+
+Open Google Cloud Console
+
+Sign in with your Google account.
+
+Open the project selector at the top of the page.
+
+Click New Project.
+
+Enter the following details:
+
+Field
+
+	
+
+Value
+
+
+
+
+Project name
+
+	
+
+PocketSmart AI
+
+
+
+
+Project ID
+
+	
+
+pocketsmart-ai-2026 (if available)
+
+
+
+
+Organization
+
+	
+
+Leave as default, if applicable
+
+5. Click Create and select the new project.
+
+If Google asks you to configure billing or verify your account, follow its instructions with the account holder's permission.
+
+2. Enable the Gemini API
+
+For PocketSmart AI, use the Gemini Developer API. Google AI Studio lets you connect it to your Google Cloud project and create the API credentials.
+
+Google AI Studio
+
+Manage Gemini projects and API keys
+
+Open Google AI Studio
+
+Sign in using the same Google account.
+
+Open the Dashboard and select Projects.
+
+Click Import projects.
+
+Find your PocketSmart AI Google Cloud project and import it.
+
+Open the API Keys page.
+
+Click Create API key and select your PocketSmart AI project.
+
+New Gemini API keys created through AI Studio are authorization keys by default as of May 2026. Use the new key type rather than relying on an unrestricted legacy key. 
+Google AI for Developers
++1
+
+Official instructions: Gemini API key setup guide
+.
+
+3. Configure API access and billing
+
+If you specifically want to enable the API in Google Cloud Console:
+
+Generative Language API
+
+Open API Library
+
+Confirm that PocketSmart AI is selected in the project selector.
+
+Open the Generative Language API page.
+
+Click Enable if the option is available.
+
+Return to AI Studio and verify that your API key is listed.
+
+For paid API access, configure billing from the AI Studio billing page. The free tier has model-specific usage limits. Paid usage requires a linked billing account and may require a prepaid balance. Google states that the standard $300 Cloud welcome credit does not cover Gemini API usage for accounts opened after March 2, 2026. 
+Google AI for Developers
++1
+
+4. Connect Gemini to PocketSmart AI
+
+For a Python backend, install the official Google Gen AI SDK.
+
+pip install -U google-genai
+
+Create a .env file in your backend project:
+
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+
+Keep the API key private. Never commit it to GitHub or put it directly into frontend JavaScript. Use a backend server to make Gemini requests. 
+Firebase
++1
+
+Create a test file named test_gemini.py:
+
+from google import genai
+import os
+
+client = genai.Client(
+    api_key=os.environ["GEMINI_API_KEY"]
+)
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents="Hello! Explain PocketSmart AI in one sentence."
+)
+
+print(response.text)
+
+Set the GEMINI_API_KEY environment variable before running the script. The model name shown is an example of a supported model to verify in AI Studio; Gemini 1.5 Flash and 1.5 Pro are older models and may no longer be available. 
+Google AI for Developers
++1
+
+5. Verify the setup
+Setup checklist
+Google Cloud project created.
+Gemini API enabled or available through AI Studio.
+API key created and stored securely.
+Text prompt returns a response.
+Jewelry Planner image input tested.
+
+Next step: Once your API key is created, you can connect it to your PocketSmart AI backend for budget analysis, personalized recommendations, and jewelry image analysis.
