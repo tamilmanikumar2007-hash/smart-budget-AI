@@ -1,0 +1,161 @@
+If you mean “Main Functionality – Code Routings” for your PocketSmart AI project, you can structure the backend like this:
+
+PocketSmart AI
+│
+├── /generate-home
+│   └── Home recommendation flow
+│       ├── Get user budget
+│       ├── Get room/category
+│       ├── Apply if-condition
+│       ├── Generate recommendations
+│       └── Fetch product links
+│
+├── /generate-party
+│   └── Party planning flow
+│       ├── Get event type
+│       ├── Get budget
+│       ├── Get guest count
+│       ├── Apply if-condition
+│       ├── Recommend catering
+│       ├── Recommend venue
+│       └── Recommend decoration/products
+│
+├── /recommendations
+│   └── Common recommendation engine
+│       ├── Input validation
+│       ├── Budget filtering
+│       ├── Category matching
+│       └── Product ranking
+│
+├── /products
+│   └── Product integration
+│       ├── Amazon
+│       ├── Flipkart
+│       └── IKEA
+│
+└── /ai
+    └── Gemini API
+        ├── Understand user request
+        ├── Categorize requirements
+        └── Generate personalized recommendations
+Example routing code
+app.post("/generate-home", async (req, res) => {
+    const { budget, category, room } = req.body;
+
+    let recommendations = [];
+
+    if (category === "furniture") {
+        recommendations = await getFurniture(budget, room);
+    } 
+    else if (category === "decor") {
+        recommendations = await getDecor(budget, room);
+    } 
+    else if (category === "lighting") {
+        recommendations = await getLighting(budget, room);
+    }
+
+    res.json({
+        type: "home",
+        budget,
+        recommendations
+    });
+});
+
+app.post("/generate-party", async (req, res) => {
+    const { budget, eventType, guests } = req.body;
+
+    let recommendations = [];
+
+    if (eventType === "birthday") {
+        recommendations = await getBirthdayRecommendations(
+            budget,
+            guests
+        );
+    } 
+    else if (eventType === "wedding") {
+        recommendations = await getWeddingRecommendations(
+            budget,
+            guests
+        );
+    }
+
+    res.json({
+        type: "party",
+        budget,
+        recommendations
+    });
+});
+Main code flow
+User Input
+    ↓
+Gemini AI
+    ↓
+Identify Situation
+    ↓
+IF / ELSE Categorization
+    ↓
+Recommendation Function
+    ↓
+Budget Filtering
+    ↓
+Product APIs / Affiliate Links
+    ↓
+Amazon / Flipkart / IKEA
+    ↓
+Personalized Results
+
+This gives you a clean separation between routing → AI classification → recommendation logic → product integration.
+
+i want text coding this heading
+
+Sure bro 👍 If you want only the text/coding for the heading “Main Functionality – Code Routings”, use this:
+
+Main Functionality – Code Routings
+Main Functionality – Code Routings
+
+The Main Functionality of PocketSmart AI is implemented using different code routes to handle user requests and generate personalized recommendations.
+
+1. Home Recommendation Route
+/generate-home
+
+This route receives the user's home requirements such as budget, room type, furniture, decoration, and lighting. Based on the selected category and budget, the system generates suitable product recommendations.
+
+2. Party Recommendation Route
+/generate-party
+
+This route handles party and event requirements such as event type, budget, number of guests, catering, venue, and decoration. The system categorizes the requirements and generates suitable recommendations.
+
+3. Recommendation Route
+/recommendations
+
+This route processes the user's requirements and filters recommendations according to category, budget, and preferences.
+
+4. Product Integration Route
+/products
+
+This route connects the recommendation system with external shopping platforms such as Amazon, Flipkart, and IKEA to provide relevant product information and links.
+
+5. AI Processing Route
+/ai
+
+This route connects with the Gemini API to understand user requirements, categorize the situation, and generate personalized recommendations.
+
+Overall Code Flow
+User Input
+     ↓
+AI Processing
+     ↓
+Situation Categorization
+     ↓
+IF / ELSE Conditions
+     ↓
+Recommendation Function
+     ↓
+Budget & Category Filtering
+     ↓
+Product Integration
+     ↓
+Personalized Recommendations
+Writing code? Meet Codex in the desktop app
+Pair with Codex in your terminal or IDE, free for a limited time in your ChatGPT plan.
+Install Codex
