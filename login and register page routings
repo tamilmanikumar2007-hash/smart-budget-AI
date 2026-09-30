@@ -1,0 +1,102 @@
+Login and Register Page – Code Routings
+
+The Login and Register pages are used to manage user authentication and account access in the PocketSmart AI application. The routing system allows new users to create an account and existing users to securely log in to the application.
+
+1. Register Page Route
+/register
+
+The Register route allows a new user to create an account by entering details such as name, email, and password.
+
+Example Code
+app.post("/register", async (req, res) => {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+        return res.status(400).json({
+            message: "All fields are required"
+        });
+    }
+
+    // Save user details in database
+    await createUser(name, email, password);
+
+    res.status(201).json({
+        message: "Registration successful"
+    });
+});
+2. Login Page Route
+/login
+
+The Login route verifies the user's email and password. If the credentials are valid, the user is authenticated and redirected to the main application dashboard.
+
+Example Code
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await findUser(email);
+
+    if (!user) {
+        return res.status(401).json({
+            message: "Invalid email or password"
+        });
+    }
+
+    const validPassword = await checkPassword(
+        password,
+        user.password
+    );
+
+    if (!validPassword) {
+        return res.status(401).json({
+            message: "Invalid email or password"
+        });
+    }
+
+    res.json({
+        message: "Login successful",
+        user: {
+            name: user.name,
+            email: user.email
+        }
+    });
+});
+3. Logout Route
+/logout
+
+The Logout route ends the user's authenticated session and returns the user to the Login page.
+
+app.post("/logout", (req, res) => {
+    // Destroy session or invalidate authentication token
+
+    res.json({
+        message: "Logout successful"
+    });
+});
+4. Authentication Flow
+User
+ ↓
+Register / Login Page
+ ↓
+Enter Email & Password
+ ↓
+Authentication
+ ↓
+Database Verification
+ ↓
+ ┌───────────────┐
+ │ Valid Details?│
+ └───────┬───────┘
+         │
+    Yes  │  No
+     ↓   │   ↓
+Dashboard│ Error Message
+         │
+         ↓
+      Login Page
+5. Main Routing Structure
+/login
+/register
+/logout
+/dashboard
+
+The authentication routes provide secure access to the PocketSmart AI application and ensure that only authenticated users can access personalized features such as home recommendations, party recommendations, budgets, and saved products.
